@@ -13,7 +13,12 @@ class NoteAdapter (private var noteList: MutableList<Note>, private val listener
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val binding = ItemNoteBinding.bind(view) //llamamos a item_note.xml
 
-
+        fun setListener(note: Note) { //implementar Class Note, recibe Note respecto a la que este seleccionada
+            binding.root.setOnLongClickListener {
+                listener.onLongClick(note)
+                true
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,12 +34,19 @@ class NoteAdapter (private var noteList: MutableList<Note>, private val listener
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val note = noteList[position]
 
+        //CONFIGURAMOS EL LISTENER DE inner class ViewHolder
+        holder.setListener(note)
+
         //accede a la vista activity_main id tvDecription
         holder.binding.tvDescription.text = note.description
     }
 
     fun add(note: Note) {
         noteList.add(note)
+        notifyDataSetChanged() //actualiza
+    }
+    fun remove(note: Note) {
+        noteList.remove(note)
         notifyDataSetChanged() //actualiza
     }
 }

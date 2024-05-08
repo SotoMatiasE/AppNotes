@@ -15,6 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:orientation="horizontal"
             android:gravity="center"
             android:padding="@dimen/common_padding_default">
@@ -24,12 +25,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="100"
                 android:hint="@string/hint_description"
+                app:counterEnabled="true"
+                app:counterMaxLength="@integer/description_maxLength"
                 style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox">
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:maxLength="@integer/description_maxLength"
+                    android:inputType="textCapSentences"
+                    android:imeOptions="actionDone"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageButton

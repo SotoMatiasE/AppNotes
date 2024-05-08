@@ -2,9 +2,8 @@ package com.example.appnotes
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appnotes.databinding.ActivityMainBinding
 
@@ -33,6 +32,8 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                     binding.etDescription.text.toString().trim())
                 addNoteAutom(note)
                 binding.etDescription.text?.clear()
+            }else {
+                binding.etDescription.error = getString(R.string.validation_field_require)
             }
         }
     }
@@ -40,7 +41,18 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     private fun addNoteAutom(note: Note){
         noteAdaptrer.add(note)
     }
-    override fun onLongClick(note: Note) {
+    private fun deleteNoteAutom(note: Note){
+        val builder = AlertDialog.Builder(this)
+            .setTitle(getString(R.string.dialog_title))
+            .setPositiveButton(getString(R.string.dialog_ok)) { dialogInterface, i ->
+                noteAdaptrer.remove(note)
+            }
+            .setNegativeButton(getString(R.string.dialog_cancel), null)
 
+        builder.create().show()
     }
+    override fun onLongClick(note: Note) {
+        deleteNoteAutom(note)
+    }
+
 }
