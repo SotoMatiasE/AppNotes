@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AppNotes</string>
+    <string name="hint_description">Añade una nota</string>
 </resources>
