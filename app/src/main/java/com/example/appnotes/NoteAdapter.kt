@@ -31,6 +31,7 @@ class NoteAdapter (private var noteList: MutableList<Note>, private val listener
     override fun getItemCount(): Int = noteList.size  //VA A INDICAR CUANTOS ELEMENTOS QUEREMOS VER EN EL LISTADO
 
 
+    //onBindViewHolder es para modificar la parte de la vista
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val note = noteList[position]
 
@@ -39,6 +40,9 @@ class NoteAdapter (private var noteList: MutableList<Note>, private val listener
 
         //accede a la vista activity_main id tvDecription
         holder.binding.tvDescription.text = note.description
+
+        //si tiene el valor cel check en true se auto selecciona
+        holder.binding.cbFinished.isChecked = note.isFinished
     }
 
     fun add(note: Note) {

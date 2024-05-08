@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         setContentView(binding.root)
 
         val data = mutableListOf(Note(1, "Estudiar kotlin"),
-                         Note(2, "Jugar fulbito"))
+                                 Note(2, "Jugar fulbito"))
 
         noteAdaptrer = NoteAdapter(data, this)
         binding.recyclerView.apply {//vinculacion con recycler_view de activity_main
