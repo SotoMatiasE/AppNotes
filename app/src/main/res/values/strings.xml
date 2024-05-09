@@ -6,4 +6,5 @@
     <string name="dialog_cancel">Cancelar</string>
     <string name="validation_field_require">Campo requerido</string>
     <string name="note_pending">Pendientes</string>
+    <string name="note_finish">Finalizados</string>
 </resources>

@@ -54,9 +54,23 @@
             android:paddingHorizontal="@dimen/common_padding_default"
             android:textAppearance="?attr/textAppearanceOverline"/>
 
-<!--tools:listitem="@layout/item_note" IMPORTANTE-->
+<!--tools:listitem="@layout/item_note" IMPORTANTE RC 1-->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/rvNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_note"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/note_finish"
+            android:paddingHorizontal="@dimen/common_padding_default"
+            android:textAppearance="?attr/textAppearanceOverline"/>
+
+<!--tools:listitem="@layout/item_note" IMPORTANTE RC 2-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNotesFinished"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:listitem="@layout/item_note"/>

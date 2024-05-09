@@ -32,11 +32,11 @@ class NoteAdapter (private var noteList: MutableList<Note>, private val listener
         fun setListener(note: Note) { //implementar Class Note, recibe Note respecto a la que este seleccionada
             binding.cbFinished.setOnClickListener {
                 note.isFinished = (it as CheckBox).isChecked
-                notifyDataSetChanged()
+                listener.onChecked(note) //cambiamos el estado del check en pendientes
             }
 
             binding.root.setOnLongClickListener {
-                listener.onLongClick(note)
+                listener.onLongClick(note, this@NoteAdapter)
                 true
             }
         }
