@@ -5,4 +5,5 @@
     <string name="dialog_ok">Eliminar</string>
     <string name="dialog_cancel">Cancelar</string>
     <string name="validation_field_require">Campo requerido</string>
+    <string name="note_pending">Pendientes</string>
 </resources>

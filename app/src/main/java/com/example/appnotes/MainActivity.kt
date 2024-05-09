@@ -51,6 +51,11 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
         builder.create().show()
     }
+
+    override fun onChecked(note: Note) {
+
+    }
+
     override fun onLongClick(note: Note) {
         deleteNoteAutom(note)
     }

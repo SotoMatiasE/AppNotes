@@ -46,7 +46,14 @@
                 android:background="?attr/selectableItemBackground"
                 app:tint="?attr/colorPrimary" />
         </LinearLayout>
-        
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/note_pending"
+            android:paddingHorizontal="@dimen/common_padding_default"
+            android:textAppearance="?attr/textAppearanceOverline"/>
+
 <!--tools:listitem="@layout/item_note" IMPORTANTE-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
