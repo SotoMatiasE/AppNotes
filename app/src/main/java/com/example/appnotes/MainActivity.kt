@@ -37,19 +37,19 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             adapter = notesFinishAdapter
         }
 
-        binding.btnAdd.setOnClickListener { //AGREGAMOS EL EVENTO DE CLICK AL BOTON
-            if (binding.etDescription.text.toString().isNotBlank()) {
+        binding.btnAdd.setOnClickListener {
+            if (binding.etDescription.text.toString().isNotBlank()){
                 val note = Note(description = binding.etDescription.text.toString().trim())
                 note.id = database.insertNote(note)
 
-                if (note.id != -1L){
+                if (note.id != Constants.ID_ERROR.toLong()) {
                     addNoteAutom(note)
                     binding.etDescription.text?.clear()
-                    Snackbar.make(binding.root, "Operacion exitosa.", Snackbar.LENGTH_SHORT).show()
-                }else {
-                    Snackbar.make(binding.root, "Error al modificar la Base de Datos.", Snackbar.LENGTH_SHORT).show()
+                    showMessage(R.string.message_write_db_succes)
+                } else {
+                    showMessage(R.string.message_db_error)
                 }
-            }else {
+            } else {
                 binding.etDescription.error = getString(R.string.validation_field_require)
             }
         }
@@ -62,18 +62,20 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
 
     private fun getData(){
-        val data = mutableListOf(Note(1, "Estudiar kotlin"),
-                                 Note(2, "Jugar fulbito"))
+        /*val data = mutableListOf(Note(1, "Estudiar kotlin"),
+                                 Note(2, "Jugar fulbito"))*/
 
+
+        val data = database.getAllNotes()
         data.forEach { note -> //por cada nota agregalo al adaptador
             addNoteAutom(note)
         }
     }
 
-    private fun addNoteAutom(note: Note){
+    private fun addNoteAutom(note: Note) {
         if (note.isFinished){
             notesFinishAdapter.add(note)
-        }else {
+        } else {
             noteAdaptrer.add(note)
         }
     }
@@ -86,20 +88,34 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     }
 
     override fun onChecked(note: Note) {
-        //eliminar la nota de donde se encuentra actualmente y moverla al siguente rcView
-        deleteNoteAutom(note)
-        addNoteAutom(note)
+        if (database.updateNote(note)) {
+            //eliminar la nota de donde se encuentra actualmente y moverla al siguente rcView
+            deleteNoteAutom(note)
+            addNoteAutom(note)
+        }else {
+            showMessage(R.string.message_db_error)
+        }
     }
 
     override fun onLongClick(note: Note, currentAdapter: NoteAdapter) {
         val builder = AlertDialog.Builder(this)
             .setTitle(getString(R.string.dialog_title))
-            .setPositiveButton(getString(R.string.dialog_ok)) { dialogInterface, i ->
-                currentAdapter.remove(note)
+            .setPositiveButton(getString(R.string.dialog_ok)) { _, _ ->
+                if (database.deleteNote(note)){
+                    currentAdapter.remove(note)
+                    showMessage(R.string.message_write_db_succes)
+                }else {
+                    showMessage(R.string.message_db_error)
+                }
             }
             .setNegativeButton(getString(R.string.dialog_cancel), null)
 
         builder.create().show()
+    }
+
+    private fun showMessage(msgRes: Int){
+        Snackbar.make(binding.root,getString(msgRes), Snackbar.LENGTH_SHORT).show()
+
     }
 
 }

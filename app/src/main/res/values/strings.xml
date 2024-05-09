@@ -7,4 +7,6 @@
     <string name="validation_field_require">Campo requerido</string>
     <string name="note_pending">Pendientes</string>
     <string name="note_finish">Finalizados</string>
+    <string name="message_write_db_succes">Operacion exitosa.</string>
+    <string name="message_db_error">Error al modificar la Base de Datos.</string>
 </resources>
